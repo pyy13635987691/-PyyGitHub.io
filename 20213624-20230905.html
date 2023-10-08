@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Linux基础命令和Git环境配置</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            margin: 20px;
+        }
+        
+        .div {
+            margin: 0 auto;
+            width: 90%;
+        }
+        
+        h2 {
+            margin-top: 30px;
+        }
+        
+        pre {
+            width: 90%;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="div">
+        <h1>Linux基础命令和Git环境配置</h1>
+        <h2>1. 简介</h2>
+        <div class="div1">
+            <pre>
+                <code>
+        Linux操作系统与Windo操作系统的目录结构不一样，例如：
+		1.在Windows操作系统种的结构为  D:\Git-2.30.0-64-bit\Git，且这种的结构可以有多个，就是结构树，可以有多个，
+		注意：	这里的D: 表示D盘
+			\表示层级关系	
+		2.在Linux操作系统中的目录结构为  /Git-2.30.0-64-bit/Git ， Linux操作系统只有一个顶级目录，就是一个根目录
+		注意：	开头的/ 表示根目录
+			后面的/ 表示层级关系
+	学习Linux，本质就是学习在命令行下熟练使用Linux的各类命令：
+		1.命令行：就是Linux终端，是一命令行提示符页面。以纯“字符”的形式操作系统。
+		2.命令：就是Linux程序。一个命令就是一个Linux的程序。命令没有图形化页面，可以在命令行(终端)提供字符反馈。	
+
+	命令的通用格式：commard [-options] [parameter]
+		commard:命令本身
+		-options:[可选，非必填]命令的一些选项，可以通过选项控制命令的行为细节
+		parameter:[可选，非必填]命令的参数，多数用于命令的指向目标
+
+	安装了GIT，一下绝大多数的命令是在书中看到（THE LINLIX COMMAND），并预习了前三章的内容，并熟习运行一些简单命令如：
+	快捷键：
+	Ctrl + D：关闭Linux命令行窗口
+	Ctrl + L：清理Linux命令行窗口
+                </code>
+            </pre>
+        </div>
+        <h2>2. Linux基础命令</h2>
+        <pre>
+                <code>
+        命令：				    	命令功能：
+
+        1.cd [路径]				跳转或进入目录的命令
+            参数作用:
+            没有选项只有参数，参数表示目标路径
+            /: 表示根目录
+            .: 表示当前目录
+            ..:表示当前工作目录的上一级目录
+            ~：表示HOME目录
+        2.pwd 					输出当前所在的工作目录
+            没有选项，没有参数，直接使用就可以了。
+            
+        3.ls [-a -l -h] [Linux路径]		默认查看当前工作目录内的内容，但默认的不会展示文件名以.例如（.linux）开始的文件显出来
+            参数作用:
+            -a:可以将文件名以.例如（.linux）开始的文件显出来
+            -l:以列表(竖向排列)的新式展示内容，比默认的多更多信息
+            -h:表示已阅读的形式，列出文件的大小，如K，M，G 。必须与l选项一起使用如：ls -lh
+                选项可以一起使用如：ls -al; ls -la; ls -a -l;这三种是一样的
+    
+        4.mkdir [-p] Linux路径	 		在Linux路径下创建文件夹(相对路径与绝对路径都可以)
+            参数作用:
+            不加参数：只能创建单个目录
+            -P: 可以创建多级目录，就是目录下包含目录
+    
+        5.exit  或  ctrl + D			退出GIT
+    
+        6.cp [-r] 参数1 参数 2 			可以用于复制文件夹
+            -r:可选，用于复制文件夹，表示递归
+            参数1：Linux路径，表示被复制的文件或文件夹
+            参数2：Linux路径，表示要复制去的地方
+    
+        7.mv 参数1 参数 2 			移动文件或文件夹
+            参数1：Linux路径，表示被移动的文件或文件夹
+            参数2：Linux路径，表示要移动去的地方，如果目标不存在，则进行改名，确保目标存在
+    
+        8.rm [-r -f] 参数1 参数 2 ... 参数n	删除文件名为文件的文件
+            -r:可选，用于复制文件夹，表示递归，用于删除文件夹
+            -f:可选，表示强制删除，不会提示信息
+            参数1 参数 2 ... 参数n：表示要删除的文件或文件夹路径，用空格隔开（一次性删除多个文件夹）
+            rm 支持通配符*，用来做模糊匹配
+                test*：表示匹配任何test开头的内容
+                *test*：表示匹配任何包含test的内容
+                test*：表示匹配任何test结尾的内容
+    
+                </code>
+            </pre>
+        <h2>
+            3.了解了git环境配置以及建立仓库
+        </h2>
+        <pre>
+                <code>
+
+git config --global user.name "name"
+git config --global user.email "email"		/设置用户/
+
+git init						/初始化本地仓库/
+                </code>
+            </pre>
+
+        <h2>
+            4.gitbash指令使用情况（即history）
+        </h2>
+
+        <pre>
+            <code>
+                $ history
+    1  git config --global user.name"R9000x 2021@Lenovo
+    2  git config --global user.name
+    3  config --global user.name
+    4  git config --global user.name
+    5  touch ~/ .bashrc
+    6  touch ~/ .txt
+    7  touch pyy123.txt
+    8  touch pyy1234.txt
+    9  rm pyy123
+   10  rm pyy123.txt
+   11  touch 2.ppt
+   12  rm 2.ppt
+   13  rm pyy1234.txt
+   14  rm .txt
+   15   git config --global user.name
+   16  cls
+   17  clea
+   18  clear
+   19   git config --global user.name
+   20   git config --global user.name
+   21   git config --global user.name
+   22  git init
+   23  ll
+   24  ls
+   25  ll
+   26  ls -a
+   27  clear
+   28  touch file01.txt
+   29  git statue
+   30  git status
+   31  touch file02.txt
+   32  git status
+   33  status
+   34  git add file01.txt
+   35  git status
+   36  git add .
+   37  git status
+   38  git commit -m "add file01"
+   39   git config --global user.name "pyy"
+   40  git config --global user.email "pyy@123.com"
+   41  git config --global user.email
+   42   git config --global user.name
+   43  git commit -m "add file01"
+   44  git status
+   45  git stauts
+   46  git log
+   47  vi file01.txt
+   48  git status
+   49  ls
+   50  git add file01.txt
+   51  git status
+   52  git commit -m "File01.txt "
+   53  git log
+   54  lu
+   55  vi
+   56  ls
+   57  ls -A
+   58  git status
+   59  git add file01.txt
+   60  git status
+   61  git config --global user.name
+   62  git add file01.txt
+   63  git status
+   64  git file02.txt
+   65  git add file02.txt
+   66  git status
+   67  git add .
+   68  git status
+   69  git commit -m "add.swp"
+   70  git status
+   71  git log
+   72  vi
+   73  git status
+   74  git rm .swp
+   75  git status
+   76  git log
+   77  vi file01.txt
+   78  git log
+   79  vi file01
+   80  git rm file01
+   81  rm file01
+   82  vi file02.txt
+   83  git add file01.txt
+   84  git status
+   85  git add .
+   86  git status
+   87  git commit -m "file02_update.txt"
+   88  git log
+   89  git status
+   90  git log
+   91  git reset --hard 3eb6db1a017ee3dbb99d1a6e75bd00c5b7d499ec
+   92  git log
+   93  git reset --hard 3eb6db1a017ee3dbb99d1a6e75bd00c5b7d499ec
+   94  git log
+   95  git reset --hard 3eb6db1a017ee3dbb99d1a6e75bd00c5b7d499ec
+   96  git log
+   97  git reflog
+   98  git log
+   99  git -log
+  100  git init
+  101  touch file01.txt
+  102  git add file01.txt
+  103  git status
+  104  git commit -m "file01.txt"
+  105  git log
+  106  git config --global user.name
+  107  vi file01.txt
+  108  git status
+  109  git add .
+  110  git status
+  111  git commit -m "update file01.txt"
+  112  git status
+  113  git log
+  114  it reset commitID --hard f6d61c6192178e2b8601d227542324c6a364204f
+  115  git reset commitID --hard f6d61c6192178e2b8601d227542324c6a364204f
+  116  git reset --hard f6d61c6192178e2b8601d227542324c6a364204f
+  117  git log
+  118  git reset --hard f6d61c6192178e2b8601d227542324c6a364204f
+  119  git log
+  120  git reset --hard fdd1f4aec85a95189d39a27c9c145e230729e43b
+  121  git log
+  122  history
+  123  ls
+  124  ls
+  125  history
+  126  history
+  127  history
+  128  history
+  129  git status
+  130  ls
+  131  ls -l
+  132  ls /
+  133  ls
+  134  ~
+  135  cd ~\
+  136  cd
+  137  cd
+  138  cd \
+  139  cd /
+  140  cd ~
+  141  psd
+  142  pwd
+  143  ls
+  144  pwd
+  145  mkdir pyy
+  146  ls
+  147  touch 20213624.txt
+  148  ls'
+  149  l
+  150  ls
+  151  ls -l
+  152  cp 20213624.txt  20213624(1).txt
+  153  cp 20213624.txt  20213623.txt
+  154  cat 20213623.txt
+  155  cp 20213624.txt  20213623.txt
+  156  cat 20213623.txt
+  157  ls
+  158  cp test/ test1
+  159  cp -r test/ test1
+  160  ls
+  161  cd test1/
+  162  ls
+  163  cat 20213623.txt
+  164  cd ..
+  165  mv 20213624.txt test1
+  166  cd test1
+  167  ls
+  168  mv 20213623.txt 20213627.txt
+  169  cd ..
+  170  ls
+  171  mv test1/ mv test
+  172  mv test1 test
+  173  mv /test1 test
+  174  mv test1 test
+  175  history
+  176  rm -r test pyy 1.txt
+  177  su - root
+  178  su
+  179  root
+  180  su root
+  181  which cd
+  182  which ls
+  183  psd
+  184  pwd
+  185  which mv
+  186  /usr/bin/mv
+  187  ubuntu
+  188  mkdir mp3
+  189  cd d/
+  190  ls
+  191  whoami.exe
+  192  -
+  193  cd d/
+  194  cd f
+  195  cd d
+  196  cd /d
+  197  cd d/
+  198  cd c/
+  199  cd /c
+  200  cd /d
+  201  ls /d
+  202  ls /c
+  203  ls /d -l
+  204  ls -l -h
+  205  ls -lh
+  206  history
+  207  mv Java\ Web\ pdf/*.pdf /PPT
+  208  mv Java\ Web\ pdf/*.pdf PPT
+  209  mv Java\ Web\ pdf/*.pdf ./PPT
+  210  mv Java\ Web\ pdf/*.pdf .PPT
+  211  mv Java\ Web\ pdf/*.pdf PPT
+  212  mv PPT/*.ppt Java\ Web\ pdf/
+  213  mv PPT/*.pdf Java\ Web\ pdf/
+  214  ls Java\ Web\ pdf/ -l
+  215  history
+  216  cd /
+  217  ls -r
+  218  cd /d/大学学习文件夹/大三文件夹/Java Web
+  219  cd d:/大学学习文件夹/大三文件夹/Java Web
+  220  cd /d:/大学学习文件夹/大三文件夹/Java Web
+  221  cd d
+  222  cd /
+  223  ls
+  224  ls ReleaseNotes.html
+  225  cat ReleaseNotes.html -R
+  226  cd /D:/大学学习文件夹/大三文件夹
+  227  cd D:/大学学习文件夹/大三文件夹
+  228  cd Java\ Web/
+  229  ls -R
+  230  cd /
+  231  ls
+  232  ls ReleaseNotes.html -R
+  233  cat ReleaseNotes.html
+  234  ls
+  235  cd D:/大学学习文件夹/大三文件夹
+  236  cd JavaWebpdf
+  237  cd /
+  238  ls
+  239  ls -l
+  240  ls -lh
+  241  ls -lh
+  242  cd /d
+  243  ls
+  244  ls 大学学习文件夹/
+  245  ls 大学学习文件夹/大三文件夹/
+  246  ls d
+  247  ls d:
+  248  ls d
+  249  ls /d
+  250  cd /d
+  251  mkdir  JavaWebHomeWork
+  252  ls /d
+  253  cd /d/JavaWebHomeWork/
+  254  ls
+  255  ls -r
+  256  ls -E
+  257  ls -R
+  258  mkdir mp3
+  259  mv *.mp3 mp3/
+  260  ls -R
+  261  cd /d
+  262  cd d:
+  263  cd c:
+  264  cd /c
+  265  cd c
+  266  cd /
+  267  cd /c
+  268  cd /
+  269  cd d
+  270  cd /d
+  271  cd d/
+  272  cd d
+  273  cd /
+  274  cd c
+  275  cd
+  276  ls
+  277  cd d
+  278  cd /d
+  279  cd /c
+  280  cd /c
+  281  cd /
+  282  ls
+  283  cd
+  284  cd
+  285  ls
+  286  cd d
+  287  cd /d
+  288  cd
+  289  cd /c
+  290  cd /d
+  291  ls JavaWe、
+  292  ls JavaWebHomeWork/
+  293  ls JavaWebHomeWork/ -R
+  294  cd
+  295  cd /d
+  296  ls
+  297  ls JavaWebHomeWork/ -R
+  298  cd /
+  299  ls
+  300  cd
+  301  ls /d/JavaWebHomeWork/ -R
+  302  cd /d
+  303  cd JavaWebHomeWork/
+  304  ls -R
+  305  cd /d
+  306  ls
+  307  ls /d/JavaWebHomeWork/ -R
+  308  histor
+  309  history
+  310  ls /d/JavaWebHomeWork/ -R
+  311  cd /d
+  312  cd JavaWebHomeWork/
+  313  ls
+  314  tar -xf videoClips
+  315  ls
+  316  rm videoClips
+  317  ls
+  318  ls videoMP4/ -R
+  319  ls /d -r | grep JavaWebHomeWork
+  320  ls /d | grep JavaWebHomeWork
+  321  cd /d
+  322  ls JavaWebHomeWork/
+  323  ls JavaWebHomeWork/ -r
+  324  ls JavaWebHomeWork/ -R
+  325  ls /d -R | grep JavaWebHomeWork
+  326  cd /d
+  327  echo "我当前的工作目录是`pwd`"
+  328  echo "我当前的工作目录是:`pwd`"
+  329  vim hello.txt
+  330  cat hello.txt
+  331  vim hello.txt
+  332  vim hello.txt
+  333  cat hello.txt
+  334  vim hello.txt
+  335  cat hello.txt
+  336  vim hello.txt
+  337  cd /d
+  338  cd /JavaWebHomeWork
+  339  ls
+  340  cd JavaWebHomeWork/
+  341  ls
+  342  ls -l
+  343  ll
+  344  ls videoMP4/
+  345  cat cxhz.hep.txt
+  346  ls
+  347  ls -h
+  348  ll -h
+  349  cat itPro.txt
+  350  less itPro.txt
+  351  wc itPro.txt
+  352  grep 计算机科学与技术 itPro.txt
+  353  grep 计算机科学与技术 itPro.txt | wc
+  354  grep 计算机科学与技术 itPro.txt | wc |less
+  355  grep 计算机科学与技术 itPro.txt | less
+  356  grep 南昌 itPro.txt  | less
+  357  grep 华东 itPro.txt  | less
+  358  grep 华东 itPro.txt  | less > huadong
+  359  ls
+  360  cat huadong
+  361  rm huadong -i
+  362  ls
+  363  cat cxhz.hep.txt
+  364  mc cxhz.hep.txt
+  365  wc cxhz.hep.txt
+  366  ls
+  367  ll -h
+  368  mv huadong -I
+  369  mv huadong -i
+  370  rm huadong -I
+  371  ll -h
+  372  grep 江西 cxhz.hep.txt
+  373  grep 南昌 cxhz.hep.txt
+  374  grep 华东 cxhz.hep.txt
+  375  grep 系统 cxhz.hep.txt
+  376  grep 科技 cxhz.hep.txt
+  377  grep -help
+  378  grep -help
+  379  grep [科技,计算机] cxhz.hep.txt
+  380  grep [科技,教育] cxhz.hep.txt
+  381  grep 网络科技 cxhz.hep.txt | wc
+  382  grep 教育科技 cxhz.hep.txt | wc
+  383  grep 湖北 cxhz.hep.txt | wc
+  384  grep 湖南 cxhz.hep.txt | wc
+  385  grep 软件科技 cxhz.hep.txt | wc
+  386  grep 电子科技 cxhz.hep.txt | wc
+  387  whomi.exe
+  388  history
+  389  find /d -name "cxhz.hep.txt"
+  390  find /d/JavaWebHomeWork/ -name "cxhz.hep.txt"
+  391  find /d/JavaWebHomeWork -name "cxhz.hep.txt"
+  392  find /d/ -name "cxhz.hep.txt"
+  393  find cxhz.hep.txt
+  394  echo "你就是个大傻逼彭锦鹏"
+  395  echo "itpro.txt里面包含网络科技的内容为：`grep 网络科技 cxhz.hep.txt | wc`"
+  396  echo "itpro.txt里面包含网络科技的内容为：`grep 网络科技 cxhz.hep.txt`"
+  397  grep 科技 cxhz.hep.txt | grep 软件 cxhz.hep.txt
+  398  grep 科技 cxhz.hep.txt | grep 软件
+  399  grep 教育 cxhz.hep.txt | grep 科技
+  400  grep 北京 cxhz.hep.txt | grep 科技
+  401  grep 软件 cxhz.hep.txt | grep 电子
+  402  grep 软件 cxhz.hep.txt | grep 信息
+  403  grep 信息 cxhz.hep.txt | grep 科技
+  404  grep 南昌 cxhz.hep.txt
+  405  grep 南昌 cxhz.hep.txt
+  406  grep 教育 cxhz.hep.txt | grep 软件
+  407  grep 上海 cxhz.hep.txt | grep 软件
+  408  grep 小米 cxhz.hep.txt | grep 软件
+  409  grep 联想 cxhz.hep.txt | grep 软件
+  410  grep 联想 cxhz.hep.txt
+  411  grep 华硕 cxhz.hep.txt
+  412  grep 红米 cxhz.hep.txt
+  413  grep 彭锦鹏 cxhz.hep.txt
+  414  echo "彭锦鹏有限公司" >> cxhz.hep.txt
+  415  grep 彭锦鹏 cxhz.hep.txt
+  416  echo"\nxxxxx"
+  417  echo "\nsssss"
+  418  echo "`\n`sssss"
+  419  print "\nssss"
+  420  printf "\n ssss"
+  421  printf "\n ssss" >> itPro.txt
+  422  grep ssss cxhz.hep.txt
+  423  grep ss itPro.txt
+  424  grep 网络 cxhz.hep.txt
+  425  grep 网络 cxhz.hep.txt | wc
+  426  grep 软件 cxhz.hep.txt | wc
+  427  grep 软件 cxhz.hep.txt
+  428  grep 安全 cxhz.hep.txt
+  429  grep 教育 cxhz.hep.txt
+  430  grep 教育 cxhz.hep.txt | wc
+  431  grep 人工智能 cxhz.hep.txt | wc
+  432  cd /d
+  433  ls
+  434  cd JavaWebHomeWork/
+  435  ls
+  436  cat cxhz.hep.txt
+  437  grep 浙江 cxhz.hep.txt
+  438  grep 江苏 cxhz.hep.txt
+  439  cd /d
+  440  ls
+  441  mv linuxCMD-3.mp3 JavaWebHomeWork/
+  442  ls
+  443  cd JavaWebHomeWork/
+  444  ls
+  445  mv linuxCMD-3.mp3 mp3/
+  446  ls
+  447  ls mp3
+  448  cd /d
+  449  ls
+  450  cat vocabulary.txt
+  451  ls
+  452  cat vocabulary.txt > /d/JavaWebHomeWork/cet6.txt
+  453  ls JavaWebHomeWork/
+  454  cat JavaWebHomeWork/cet6.txt
+  455  quit
+  456  exit
+  457  cd /d
+  458  cs
+  459  ls
+  460  rm vocabulary.txt
+  461  ls
+  462  cd /d
+  463  ls
+  464  cd JavaWebHomeWork/
+  465  ls
+  466  pi https://lenovo.ilive.cn/?f=stle
+  467  pi : https://lenovo.ilive.cn/?f=stle
+  468  ping https://lenovo.ilive.cn/?f=stle
+  469  ping https://lenovo.ilive.cn/
+  470  ping https://lenovo.ilive.cn
+  471  ping lenovo.ilive.cn
+  472  ping baidu.com
+  473  pi baidu.com
+  474  ping baidu.com
+  475  traceroute mit.edu
+  476  tracert mit.edu
+  477  traceroute mit.edu
+  478  curl https://lijianhong19720904.github.io/WebAdv/kc00/cet6.txt
+  479  ls
+  480  grep tor cet6.txt | less
+  481  grep tor cet6.txt
+  482  grep tor cet6.txt | less
+  483  grep '^tor' cet6.txt | less
+  484  cut
+  485  cut help
+  486  cut --help
+  487  cut --delimiter=/ -f1 cet6.txt
+  488  cut --delimiter=/ -f1 cet6.txt | grep 'tor$' | wc
+  489  cut --delimiter=/ -f1 cet6.txt | grep 'tor$'
+  490  man ping
+  491  cut -d '/' cet6.txt
+  492  cut -d=/ cet6.txt
+  493  cut --help
+  494  cut -d '/' -f1 cet6.txt
+  495  quit
+  496  exit
+  497  history
+            </code>
+        </pre>
+    </div>
+</body>

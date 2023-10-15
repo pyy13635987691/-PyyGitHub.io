@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频</title>
+    <style>
+        body {
+            font-size: 17px;
+            background-color: #f5f5f5;
+        }
+        
+        #video-div {
+            width: 500px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #7e7a7a;
+            text-align: center;
+        }
+        
+        h3 {
+            color: #7e7a7a;
+            text-align: center;
+        }
+        
+        #mainone {
+            background-color: #E8E8E8;
+            font-size: 17px;
+            padding: 34px;
+            margin: 0 auto;
+            font-family: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif, SimHei, SimSun;
+            margin: 40px 80px;
+        }
+        
+        #search {
+            font-size: 16px;
+            width: 520px;
+            margin: 0 auto;
+        }
+        
+        #maintwo {
+            background-color: #E8E8E8;
+            margin: 0 auto;
+            font-family: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif, SimHei, SimSun;
+            margin: 1px 80px;
+        }
+        
+        button {
+            font-size: 16px;
+            margin: 30px;
+        }
+        
+        #button {
+            width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>我的视频页面</h1>
+    </div>
+    <div>
+        <div id="search">
+            <label for="searchInput">输入想要查看的第几个视频：</label>
+            <input type="text" id="searchInput">
+            <button onclick="search()">查找</button>
+        </div>
+    </div>
+
+    <div id="mainone">
+        <div id="video-div">
+            <video width="500px" controls src="video/v02004040000bpa9p3egncoejcefuv4g.mp4" id="video"> </video>
+        </div>
+    </div>
+    <div id="maintwo">
+        <div id="button">
+            <span><button id="start">start</button></span>
+            <span><button id="pause">pause</button></span>
+            <span><button id="next">next</button></span>
+
+        </div>
+    </div>
+    <div id="mainthree">
+        <h3 id="comment">这是第1个视频</h3>
+    </div>
+
+    <script>
+        var videoFiles = ["v02004g10000c62vhdjc77ucs4ub13h0.mp4", "v02004g10000c62vnfbc77ub99epl7dg.mp4", "v02004g10000c62vpf3c77u7or2pecqg.mp4", "v02004g10000c62vsljc77u9oiijujh0.mp4", "v02004g10000c630rfjc77u2pkcl6kr0.mp4", "v02004g10000c630slrc77ubsack6ncg.mp4", , "v02004g10000c6317h3c77ub99eqonu0.mp4", "v02004g10000c64e1fjc77u1mcul10t0.mp4", "v02004g10000c64e29bc77u08to73glg.mp4", "v02004g10000c64ecsjc77u0fsou1200.mp4", "v02004g10000c64emfjc77udflk91trg.mp4", "v02004g10000c5rrikbc77u4rdiknfog.mp4", "v02004g10000c62uptrc77u43f69kg8g.mp4", "v02004g10000c62uuljc77u0gu6e3kvg.mp4"]
+        var video = document.getElementById("video")
+        var i = 0;
+        var x = 0;
+        video.src = "D:/JavaWebHomeWork/video/" + videoFiles[i];
+
+        document.getElementById("start").onclick = function() {
+            video.play();
+        }
+        document.getElementById("pause").onclick = function() {
+            video.pause();
+        }
+        document.getElementById("next").onclick = function() {
+            if (x != 0) {
+                i = x - 1;
+                x = 0;
+            }
+            if (i == videoFiles.length) {
+                i = 0;
+            } else {
+                i++;
+            }
+            video.src = "video/" + videoFiles[i];
+            var comment = document.getElementById("comment");
+            comment.innerHTML = "这是第" + (i + 1) + "个视频";
+        }
+
+        function search() {
+            var searchText = searchInput.value;
+            x = Number(searchText);
+            if (x > videoFiles.length || x <= 0 || x == null) {
+                x = 0;
+                video.src = "video/" + videoFiles[x];
+                var comment = document.getElementById("comment");
+                comment.innerHTML = "您输入的数字有问题或者超出了最大个数，请检查，已为你跳转到第一个视频！";
+            } else {
+                video.src = "video/" + videoFiles[x - 1];
+                var comment = document.getElementById("comment");
+                comment.innerHTML = "这是第" + x + "个视频";
+            }
+
+        }
+    </script>
+</body>
+
+</html>

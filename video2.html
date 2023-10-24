@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaWebHomework5</title>
+    <title>视频</title>
     <style>
         body {
             font-size: 17px;
@@ -36,6 +36,14 @@
         }
         
         #search {
+            text-align: center;
+            font-size: 16px;
+            width: 520px;
+            margin: 0 auto;
+        }
+        
+        #time {
+            text-align: center;
             font-size: 16px;
             width: 520px;
             margin: 0 auto;
@@ -51,38 +59,90 @@
         button {
             font-size: 16px;
             margin: 30px;
+            box-shadow: 5px 6px 1px rgba(48, 46, 46, 0.132);
         }
         
         #button {
-            width: 400px;
+            width: 500px;
             margin: 0 auto;
         }
+        
+        button {
+            background-color: #4CAF50;
+            color: #ffffff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 3px;
+            /* cursor: pointer; */
+            cursor: progress;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        input {
+            width: 350px;
+            height: 40px;
+            margin: 4px 0;
+            padding-left: 25px;
+            font-size: 13px;
+            letter-spacing: 0.15px;
+            border: none;
+            outline: none;
+            background-color: #ecf0f3;
+            transition: 0.25s ease;
+            border-radius: 8px;
+            box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9;
+        }
+        
+        input:focus {
+            box-shadow: inset 4px 4px 4px #d1d9e6, inset -4px -4px 4px #f9f9f9;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
     </style>
+    <script>
+        var videoFiles = ["v02004g10000c62vhdjc77ucs4ub13h0.mp4", "v02004g10000c62vnfbc77ub99epl7dg.mp4", "v02004g10000c62vpf3c77u7or2pecqg.mp4", "v02004g10000c62vsljc77u9oiijujh0.mp4", "v02004g10000c630rfjc77u2pkcl6kr0.mp4", "v02004g10000c630slrc77ubsack6ncg.mp4", , "v02004g10000c6317h3c77ub99eqonu0.mp4", "v02004g10000c64e1fjc77u1mcul10t0.mp4", "v02004g10000c64e29bc77u08to73glg.mp4", "v02004g10000c64ecsjc77u0fsou1200.mp4", "v02004g10000c64emfjc77udflk91trg.mp4", "v02004g10000c5rrikbc77u4rdiknfog.mp4", "v02004g10000c62uptrc77u43f69kg8g.mp4", "v02004g10000c62uuljc77u0gu6e3kvg.mp4"]
+    </script>
 </head>
 
 <body>
+
     <div>
         <h1>我的视频页面</h1>
     </div>
     <div>
         <div id="search">
             <label for="searchInput">输入想要查看的第几个视频：</label>
-            <input type="text" id="searchInput">
+            <input type="text" id="searchInput" placeholder="默认为第1个视频">
             <button onclick="search()">查找</button>
         </div>
     </div>
 
+    <div>
+        <div id="time">
+            <label for="time">输入想要对视频要跳转到的时间</label> Time:
+            <input type="text" id="currentTimeDom" placeholder="默认为0秒" value="0">
+        </div>
+    </div>
+
+
     <div id="mainone">
+
         <div id="video-div">
             <video width="500px" controls src="video/v02004040000bpa9p3egncoejcefuv4g.mp4" id="video"> </video>
         </div>
+
+
     </div>
+
     <div id="maintwo">
         <div id="button">
             <span><button id="start">start</button></span>
             <span><button id="pause">pause</button></span>
             <span><button id="next">next</button></span>
-
         </div>
     </div>
     <div id="mainthree">
@@ -90,18 +150,31 @@
     </div>
 
     <script>
-        var videoFiles = ["v02004g10000c62vhdjc77ucs4ub13h0.mp4", "v02004g10000c62vnfbc77ub99epl7dg.mp4", "v02004g10000c62vpf3c77u7or2pecqg.mp4", "v02004g10000c62vsljc77u9oiijujh0.mp4", "v02004g10000c630rfjc77u2pkcl6kr0.mp4", "v02004g10000c630slrc77ubsack6ncg.mp4", , "v02004g10000c6317h3c77ub99eqonu0.mp4", "v02004g10000c64e1fjc77u1mcul10t0.mp4", "v02004g10000c64e29bc77u08to73glg.mp4", "v02004g10000c64ecsjc77u0fsou1200.mp4", "v02004g10000c64emfjc77udflk91trg.mp4", "v02004g10000c5rrikbc77u4rdiknfog.mp4", "v02004g10000c62uptrc77u43f69kg8g.mp4", "v02004g10000c62uuljc77u0gu6e3kvg.mp4"]
         var video = document.getElementById("video")
+
         var i = 0;
+
         var x = 0;
+
+        var currentTimeDom = document.getElementById("currentTimeDom");
+        var currentTime = document.getElementById("currentTime");
+
         video.src = "video/" + videoFiles[i];
 
         document.getElementById("start").onclick = function() {
+            if (!parseInt(currentTimeDom.value)) {
+                currentTimeDom.value = 0;
+                console.log("你搞什么数据类型啊啊？？？");
+            }
+            //插入数据让播放器跳转到要播放的秒数
+            video.currentTime = parseInt(currentTimeDom.value)
             video.play();
         }
         document.getElementById("pause").onclick = function() {
             video.pause();
         }
+
+        var logo = document.getElementById("logo");
 
         document.getElementById("next").onclick = function() {
             if (x != 0) {
@@ -113,10 +186,12 @@
             } else {
                 i++;
             }
+            logo.textContent = (i + 1) + "号，" + "共" + videoFiles.length + "号";
             video.src = "video/" + videoFiles[i];
             var comment = document.getElementById("comment");
             comment.innerHTML = "这是第" + (i + 1) + "个视频";
         }
+
 
         function search() {
             var searchText = searchInput.value;

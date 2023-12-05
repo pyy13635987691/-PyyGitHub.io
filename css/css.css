@@ -5,6 +5,9 @@ body {
 }
 
 #inputContainer {
+  margin: 0 auto;
+  margin: 10px 80px;
+  width: 1235.2px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -82,6 +85,7 @@ h3 {
 
 #mainone {
   background-color: #e8e8e8;
+  width: 1235.2px;
   font-size: 17px;
   padding: 28px;
   margin: 0 auto;
@@ -108,6 +112,7 @@ h3 {
 }
 
 #maintwo {
+  width: 1290.6px;
   background-color: #e8e8e8;
   margin: 0 auto;
   font-family: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB,
@@ -164,6 +169,10 @@ button {
   font-size: 16px;
   font-weight: bold;
   transition: background-color 0.3s ease;
+}
+
+#switch {
+  width: 130px;
 }
 
 input {

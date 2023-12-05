@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaWebHomework7</title>
+    <style>
+        body {
+            font-size: 17px;
+            background-color: #f5f5f5;
+        }
+        
+        div#logo {
+            display: inline;
+            z-index: 1;
+            width: 105px;
+            font-size: 19px;
+            padding: 8px, 12px;
+            position: relative;
+            background-color: gray;
+            color: white;
+            left: 61%;
+            top: 24px;
+        }
+        
+        div#show_time {
+            display: inline;
+            z-index: 1;
+            width: 105px;
+            font-size: 19px;
+            padding: 8px, 12px;
+            position: relative;
+            background-color: gray;
+            color: white;
+            right: 0%;
+            top: 24px;
+        }
+        
+        #video-div {
+            width: 500px;
+            margin: 0 auto;
+        }
+        
+        [id^="createButton"] {
+            /* 样式规则 以createButton开头的id*/
+            font-size: 16px;
+            margin: 30px;
+            box-shadow: 5px 6px 1px rgba(48, 46, 46, 0.132);
+            background-color: #4594a6;
+            color: #ffffff;
+            padding: 12px 17px;
+            border: none;
+            border-radius: 3px;
+            /* cursor: pointer; */
+            cursor: progress;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        h1 {
+            color: #7e7a7a;
+            text-align: center;
+        }
+        
+        h3 {
+            color: #7e7a7a;
+            text-align: center;
+        }
+        
+        #mainone {
+            background-color: #E8E8E8;
+            font-size: 17px;
+            padding: 34px;
+            margin: 0 auto;
+            font-family: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif, SimHei, SimSun;
+            margin: 40px 80px;
+        }
+        
+        #search {
+            text-align: center;
+            font-size: 16px;
+            width: 520px;
+            margin: 0 auto;
+        }
+        
+        #time {
+            text-align: center;
+            font-size: 16px;
+            width: 520px;
+            margin: 0 auto;
+        }
+        
+        #maintwo {
+            background-color: #E8E8E8;
+            margin: 0 auto;
+            font-family: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif, SimHei, SimSun;
+            margin: 1px 80px;
+        }
+        
+        button {
+            font-size: 16px;
+            margin: 30px;
+            box-shadow: 5px 6px 1px rgba(48, 46, 46, 0.132);
+        }
+        
+        #button {
+            width: 500px;
+            margin: 0 auto;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: #ffffff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 3px;
+            /* cursor: pointer; */
+            cursor: progress;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        input {
+            width: 350px;
+            height: 40px;
+            margin: 4px 0;
+            padding-left: 25px;
+            font-size: 13px;
+            letter-spacing: 0.15px;
+            border: none;
+            outline: none;
+            background-color: #ecf0f3;
+            transition: 0.25s ease;
+            border-radius: 8px;
+            box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9;
+        }
+        
+        input:focus {
+            box-shadow: inset 4px 4px 4px #d1d9e6, inset -4px -4px 4px #f9f9f9;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <!-- 定义数据的，就是全局变量 在哪儿都可以访问到-->
+    <script>
+        var videoData = {
+            path: "../video/",
+            videoNames: ["v02004g10000c62vpf3c77u7or2pecqg.mp4", "v02004g10000c62uptrc77u43f69kg8g.mp4", "v02004g10000c62vpf3c77u7or2pecqg.mp4", "v02004g10000c62vsljc77u9oiijujh0.mp4", "v02004g10000c64e1fjc77u1mcul10t0.mp4"],
+
+        }
+    </script>
+</head>
+
+<body>
+
+    <div>
+        <h1>我的视频页面</h1>
+    </div>
+    <div>
+        <div id="search">
+            <label for="searchInput">输入想要查看的第几个视频：</label>
+            <input type="text" id="searchInput" placeholder="默认为第1个视频">
+            <button onclick="search()">查找</button>
+        </div>
+    </div>
+
+    <div>
+        <div id="time">
+            <label for="time">输入想要对视频要跳转到的时间</label> Time:
+            <input type="text" id="currentTimeDom" placeholder="默认为0秒" value="0">
+        </div>
+    </div>
+
+
+    <div id="mainone">
+
+        <div id="video-div">
+
+            <div id="show_time">
+                1号,共**秒.
+            </div>
+
+            <div id="logo">
+                1号,共5号.
+            </div>
+            <video width="500px" controls src="../video/v02004g10000c5rrikbc77u4rdiknfog.mp4" id="video"> </video>
+        </div>
+
+        <div id="buttonContainer"></div>
+
+        <div id="time">
+            <label for="time">显示当前的视频时间</label>
+            <input type="text" id="currentTime" placeholder="默认为0秒" value="0">
+        </div>
+
+    </div>
+
+    <div id="maintwo">
+        <div id="button">
+            <span><button id="start">start</button></span>
+            <span><button id="pause">pause</button></span>
+            <span><button id="next">next</button></span>
+        </div>
+    </div>
+    <div id="mainthree">
+        <h3 id="comment">这是第1个视频</h3>
+    </div>
+
+    <script>
+        // 定义页面元素数据模型
+        var AllEle = {
+            video: null,
+            currentTimeDom: null,
+            currentTime: null,
+            start: null,
+            pause: null,
+            logo: null,
+            next: null,
+            comment: null,
+            container: null,
+            show_time: null,
+        }
+
+        //定义javascript的变量模型
+        var variable = {
+            i: 0,
+            x: 0,
+            videoIndex: 0
+        }
+
+        //给页面元素模型定义数据
+        AllEle.video = document.getElementById("video")
+        AllEle.currentTimeDom = document.getElementById("currentTimeDom");
+        AllEle.currentTime = document.getElementById("currentTime");
+        AllEle.video.src = videoData.path + videoData.videoNames[variable.i];
+        AllEle.start = document.getElementById("start");
+        AllEle.pause = document.getElementById("pause");
+        AllEle.logo = document.getElementById("logo");
+        AllEle.next = document.getElementById("next");
+        AllEle.comment = document.getElementById("comment");
+
+        //这里可以直接从对象中拿数据，不需要获取了
+        AllEle.start.onclick = function() {
+            if (!parseInt(AllEle.currentTimeDom.value)) {
+                AllEle.currentTimeDom.value = 0;
+                console.log("你搞什么数据类型啊啊？？？");
+            }
+            //插入数据让播放器跳转到要播放的秒数
+            AllEle.video.currentTime = parseInt(AllEle.currentTimeDom.value)
+            AllEle.video.play();
+        }
+
+        //这里可以直接从对象中拿数据，不需要获取了
+        AllEle.pause.onclick = function() {
+            AllEle.video.pause();
+        }
+
+        //同上
+        AllEle.next.onclick = function() {
+            if (variable.videoIndex >= videoData.videoNames.length - 1 || variable.videoIndex < 0) {
+                variable.videoIndex = 0;
+            } else {
+                variable.videoIndex++;
+            }
+            AllEle.logo.textContent = (variable.videoIndex + 1) + "号，" + "共" + videoData.videoNames.length + "号";
+            AllEle.video.src = videoData.path + videoData.videoNames[variable.videoIndex];
+            AllEle.comment.innerHTML = "这是第" + (variable.videoIndex + 1) + "个视频";
+        }
+
+
+        //动态生成的9个按钮
+        // 获取存放按钮的容器元素,放到对象里面
+        AllEle.container = document.getElementById('buttonContainer');
+
+        // 循环生成9个按钮
+        for (let i = 1; i <= 9; i++) {
+            // 创建按钮元素
+            var button = document.createElement('button');
+
+            button.id = "createButton" + i;
+            if (i == 1) {
+                button.title = "播放";
+            } else if (i == 2) {
+                button.title = "暂停";
+            } else if (i == 3) {
+                button.title = "下一个";
+            } else {
+                button.title = "这个按钮没有设置功能";
+            }
+
+
+            // 设置按钮的文本内容
+            button.textContent = '按钮 ' + i;
+
+            // 将按钮添加到容器中
+            AllEle.container.appendChild(button);
+        }
+
+
+        //获取生成的按钮，这里就没必要放到对象里面了
+        document.getElementById("createButton1").onclick = function() {
+            if (!parseInt(AllEle.currentTimeDom.value)) {
+                AllEle.currentTimeDom.value = 0;
+                console.log("你搞什么数据类型啊啊？？？");
+            }
+            //插入数据让播放器跳转到要播放的秒数
+            AllEle.video.currentTime = parseInt(AllEle.currentTimeDom.value)
+            AllEle.video.play();
+        }
+
+        //获取生成的按钮，这里就没必要放到对象里面了
+        document.getElementById("createButton2").onclick = function() {
+            AllEle.video.pause();
+        }
+
+        //获取生成的按钮，这里就没必要放到对象里面了
+        document.getElementById("createButton3").onclick = function() {
+            if (variable.videoIndex >= videoData.videoNames.length - 1 || variable.videoIndex < 0) {
+                variable.videoIndex = 0;
+            } else {
+                variable.videoIndex++;
+            }
+            AllEle.logo.textContent = (variable.videoIndex + 1) + "号，" + "共" + videoData.videoNames.length + "号";
+            AllEle.video.src = videoData.path + videoData.videoNames[variable.videoIndex];
+            AllEle.comment.innerHTML = "这是第" + (variable.videoIndex + 1) + "个视频";
+        }
+
+
+        //在控制台输出呢内容
+        document.onkeydown = function(e) {
+            console.log("you input:" + e.key);
+        }
+
+        function search() {
+            var searchText = searchInput.value;
+            variable.x = Number(searchText);
+            if (variable.x > videoData.videoNames.length || variable.x <= 0 || variable.x == null) {
+                variable.x = 0;
+                variable.videoIndex = variable.x - 1;
+                AllEle.video.src = videoData.path + videoData.videoNames[variable.x];
+                AllEle.logo.textContent = "1号，" + "共" + videoData.videoNames.length + "号";
+                AllEle.comment.innerHTML = "您输入的数字有问题或者超出了最大个数，请检查，已为你跳转到第一个视频！";
+            } else {
+                variable.videoIndex = variable.x - 1;
+                AllEle.video.src = videoData.path + videoData.videoNames[variable.x - 1];
+                AllEle.comment.innerHTML = "这是第" + variable.x + "个视频";
+                AllEle.logo.textContent = variable.x + "号，" + "共" + videoData.videoNames.length + "号";
+            }
+
+        }
+
+        //或展示时间，将其放到对象里面
+        AllEle.show_time = document.getElementById("show_time");
+
+        window.setInterval(function() {
+
+
+            AllEle.show_time.textContent = parseInt(AllEle.video.currentTime) + "s" + "    " + "/共" + parseInt(AllEle.video.duration) + "秒";
+
+            AllEle.currentTime.value = parseInt(AllEle.video.currentTime);
+
+        }, 1000)
+
+        // //视频的UI全屏设置
+        // var browserWidth = document.body.clientWidth;
+        // video.style.width = browserWidth;
+    </script>
+</body>
+
+</html>

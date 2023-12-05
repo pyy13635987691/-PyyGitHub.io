@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaWebHomework7</title>
+    <link rel="stylesheet" href="css/css.css">
+    <!-- 定义数据的，就是全局变量 在哪儿都可以访问到-->
+    <script src="ks.js"></script>
+</head>
+
+<body>
+
+
+    <div id="inputContainer">
+        <div>
+            <div id="search">
+                <label for="searchInput">输入想要查看的第几个文件：</label>
+                <input type="text" id="searchInput" placeholder="默认为第 1 个文件">
+                <button id="searchBtn">查找</button>
+            </div>
+        </div>
+        <div id="mainthree">
+            <h3 id="comment">这是第1个文件</h3>
+            <button id="switch">切换到音频</button>
+        </div>
+        <div>
+            <div id="jumpByTime">
+                <label for="time">输入想要对文件要跳转到的时间</label> Time:
+                <input type="text" id="currentTimeDom" placeholder="起始时间为 0 秒">
+                <button id="jump">跳转</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainone">
+
+        <div id="time">
+            <input type="text" id="currentTime" placeholder="显示当前的文件时间">
+        </div>
+
+        <div id="video-div">
+
+            <div id="wrapper">
+                <div id="show_time">
+                </div>
+
+                <div id="logo">
+                </div>
+            </div>
+            <video width="500px" controls id="video"> </video>
+
+            <div id="audioContainer">
+                <!-- 音频部分 -->
+                <div id="container">
+                    <div id="main">
+                        <div id="mp3">
+                            <div id="img">
+                                <img src="1.jpg" style="width: 400px;height:auto;">
+                            </div>
+                            <audio id="audio" src="audio/linuxCMD-5.mp3" controls="controls" autoplay="autoplay" preload="auto"></audio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="buttonContainer"></div>
+    </div>
+
+    <div id="maintwo">
+        <div id="button">
+            <span><button id="start">start</button></span>
+            <span><button id="pause">pause</button></span>
+            <span><button id="next">next</button></span>
+        </div>
+    </div>
+
+
+    <script>
+        // 定义页面元素数据模型
+        var AllEle = {
+            //页面布局的元素获取
+            video: document.getElementById("video"),
+            audio: document.getElementById("audio"),
+            currentTimeDom: document.getElementById("currentTimeDom"),
+            currentTime: document.getElementById("currentTime"),
+            audioContainer: document.getElementById("audioContainer"),
+            container: document.getElementById('buttonContainer'),
+            videodiv: document.getElementById('video-div'),
+
+            //功能元素的获取
+            start: document.getElementById("start"),
+            pause: document.getElementById("pause"),
+            next: document.getElementById("next"),
+            jump: document.getElementById("jump"),
+            switch: document.getElementById("switch"),
+            search: document.getElementById("searchBtn"),
+            logo: document.getElementById("logo"),
+            comment: document.getElementById("comment"),
+            show_time: document.getElementById("show_time"),
+        }
+
+        //定义变量模型
+        var variable = {
+            i: 0,
+            x: 0,
+            isVideo: true,
+            videoIndex: 0,
+        }
+
+        //定义函数模型(函数功能的实现)
+        var functions = {
+            //初始化视频
+            init: function() {
+                AllEle.video.src = dataSource.videoData.path + dataSource.videoData.videoNames[variable.i];
+                AllEle.logo.textContent = "1号，" + "共" + dataSource.videoData.videoNames.length + "号";
+                AllEle.show_time.textContent = parseInt(AllEle.video.currentTime) + "s" + "    " + "/共" + parseInt(AllEle.video.duration) + "秒";
+                AllEle.audioContainer.remove();
+                AllEle.container.remove();
+            },
+
+            //切换页面函数
+            switch: function() {
+                if (variable.isVideo) { //当前页面为视频页面 点击切换为音频页面
+                    AllEle.logo.remove(); //移除logo
+                    AllEle.show_time.remove(); //移除show_time
+                    AllEle.video.remove(); //移除video
+
+                    AllEle.videodiv.appendChild(AllEle.audioContainer) //显示音频容器
+                    AllEle.videodiv.appendChild(AllEle.container); //显示按钮容器
+                    AllEle.comment.innerHTML = "这是" + (dataSource.audioData.title[0]);
+                } else { //当前页面为音频页面 点击切换为视频页面
+                    AllEle.videodiv.appendChild(AllEle.show_time) //显示show_time
+                    AllEle.videodiv.appendChild(AllEle.logo) //显示logo
+                    AllEle.videodiv.appendChild(AllEle.video) //显示video
+
+                    AllEle.container.remove(); //移除按钮容器
+                    AllEle.audioContainer.remove(); //移除音频容器
+
+                    AllEle.comment.innerHTML = "这是第1个文件";
+                }
+
+                variable.i = 0;
+                variable.x = 0;
+                variable.videoIndex = 0;
+                variable.isVideo = !variable.isVideo;
+
+            },
+
+            //播放函数
+            start: function() {
+                if (variable.isVideo) {
+                    AllEle.video.play();
+                } else {
+                    AllEle.audio.play();
+                }
+
+            },
+
+            //暂停函数
+            pause: function() {
+                if (variable.isVideo) { //当前页面为视频
+                    AllEle.video.pause();
+                } else { //当前页面为音频
+                    AllEle.audio.pause();
+                }
+            },
+
+            //跳跃函数
+            jump: function() {
+                if (variable.isVideo) { //当前页面为视频
+                    if (!parseInt(AllEle.currentTimeDom.value)) {
+                        alert('数据输入的格式有问题，为：' + AllEle.currentTimeDom.value + '请检查！以为你跳转到开始部分')
+                        AllEle.currentTimeDom.value = 0;
+                    } else if (parseInt(AllEle.currentTimeDom.value) < 0) {
+                        alert('数据输入数据小于0，为：' + AllEle.currentTimeDom.value + '请检查！以为你跳转到开始部分')
+                        AllEle.currentTimeDom.value = 0;
+                    } else if (parseInt(AllEle.currentTimeDom.value) > AllEle.video.duration) {
+                        alert('数据输入数据超过了文件的最大值' + AllEle.video.duration + '，你输入的为：' + AllEle.currentTimeDom.value + '请检查！以为你跳转的开始部分')
+                        AllEle.currentTimeDom.value = 0;
+                    }
+                    //插入数据让播放器跳转到要播放的秒数
+                    AllEle.video.currentTime = parseInt(AllEle.currentTimeDom.value)
+                } else { //当前页面为音频
+                    //插入数据让音频跳转到要播放的秒数
+                    if (!parseInt(AllEle.currentTimeDom.value)) {
+                        alert('数据输入的格式有问题，为：' + AllEle.currentTimeDom.value + '请检查！以为你跳转到开始部分')
+                        AllEle.currentTimeDom.value = 0;
+                    } else if (parseInt(AllEle.currentTimeDom.value) < 0) {
+                        alert('数据输入数据小于0，为：' + AllEle.currentTimeDom.value + '请检查！以为你跳转到开始部分')
+                        AllEle.currentTimeDom.value = 0;
+                    } else if (parseInt(AllEle.currentTimeDom.value) > AllEle.audio.duration) {
+                        alert('数据输入数据超过了文件的最大值' + AllEle.audio.duration + '，你输入的为：' + AllEle.currentTimeDom.value + '请检查！以为你跳转的开始部分')
+                        AllEle.currentTimeDom.value = 0;
+                    }
+                    AllEle.audio.currentTime = parseInt(AllEle.currentTimeDom.value)
+                }
+            },
+
+            //查询函数
+            search: function() {
+                var searchText = searchInput.value;
+                variable.x = Number(searchText);
+                if (variable.isVideo) { //当前页面为视频
+                    if (variable.x > dataSource.videoData.videoNames.length || variable.x <= 0 || variable.x == null) {
+                        variable.x = 0;
+                        variable.videoIndex = variable.x - 1;
+                        AllEle.video.src = dataSource.videoData.path + dataSource.videoData.videoNames[variable.x];
+                        AllEle.logo.textContent = "1号，" + "共" + dataSource.videoData.videoNames.length + "号";
+                        AllEle.comment.innerHTML = "您输入的数字有问题或者超出了最大个数，请检查，已为你跳转到第一个！";
+                    } else {
+                        variable.videoIndex = variable.x - 1;
+                        AllEle.video.src = dataSource.videoData.path + dataSource.videoData.videoNames[variable.x - 1];
+                        AllEle.comment.innerHTML = "这是第" + variable.x + "个";
+                        AllEle.logo.textContent = variable.x + "号，" + "共" + dataSource.videoData.videoNames.length + "号";
+                    }
+                } else { //当前页面为音频
+                    if (variable.x > dataSource.audioData.time.length || variable.x <= 0 || variable.x == null) {
+                        variable.x = 0;
+                        variable.videoIndex = variable.x - 1;
+                        AllEle.audio.currentTime = dataSource.audioData.time[variable.x]
+                        AllEle.comment.innerHTML = "您输入的数字有问题或者超出了最大个数，请检查，已为你跳转到第一个！";
+                    } else {
+                        variable.videoIndex = variable.x - 1;
+                        AllEle.audio.currentTime = dataSource.audioData.time[variable.x - 1];
+                        AllEle.comment.innerHTML = "这是第" + variable.x + "个";
+                    }
+                }
+            },
+
+            //下一个函数
+            next: function() {
+                if (variable.isVideo) { //当前页面为视频
+                    if (variable.videoIndex >= dataSource.videoData.videoNames.length - 1 || variable.videoIndex < 0) {
+                        variable.videoIndex = 0;
+                    } else {
+                        variable.videoIndex++;
+                    }
+                    AllEle.logo.textContent = (variable.videoIndex + 1) + "号，" + "共" + dataSource.videoData.videoNames.length + "号";
+                    AllEle.video.src = dataSource.videoData.path + dataSource.videoData.videoNames[variable.videoIndex];
+                    AllEle.comment.innerHTML = "这是第" + (variable.videoIndex + 1) + "个视频";
+                } else { //当前页面为音频
+                    if (variable.videoIndex >= dataSource.audioData.time.length - 1 || variable.videoIndex < 0) {
+                        variable.videoIndex = 0;
+                    } else {
+                        variable.videoIndex++;
+                    }
+                    AllEle.audio.currentTime = dataSource.audioData.time[variable.videoIndex];
+                    AllEle.comment.innerHTML = "这是" + (dataSource.audioData.title[variable.videoIndex]);
+                }
+
+            },
+
+
+            //展示时间函数
+            showtime: function() {
+                if (variable.isVideo) { //当前为视频页面
+                    AllEle.show_time.textContent = parseInt(AllEle.video.currentTime) + "s" + "    " + "/共" + parseInt(AllEle.video.duration) + "秒";
+                    AllEle.currentTime.value = parseInt(AllEle.video.currentTime);
+                } else {
+                    AllEle.show_time.textContent = parseInt(AllEle.audio.currentTime) + "s" + "    " + "/共" + parseInt(AllEle.audio.currentTime) + "秒";
+                    AllEle.currentTime.value = parseInt(AllEle.audio.currentTime);
+                }
+
+            },
+
+            //生成多个按钮
+            createbutton: function() {
+                for (let i = 1; i <= dataSource.audioData.title.length; i++) {
+
+                    // 创建按钮元素
+                    var button = document.createElement('button');
+                    button.id = "createButton" + i;
+                    // 设置按钮的文本内容
+                    button.textContent = dataSource.audioData.title[i - 1];
+
+                    //设置按钮的功能
+                    button.onclick = function() {
+                        AllEle.audio.currentTime = dataSource.audioData.time[i - 1];
+                        AllEle.comment.innerHTML = "这是" + (dataSource.audioData.title[i - 1]);
+                        functions.start();
+                    };
+
+                    // 将按钮添加到容器中
+                    AllEle.container.appendChild(button);
+                }
+            },
+        }
+
+
+        //下面调用functions中的播放函数
+        AllEle.start.onclick = function() {
+            functions.start();
+        };
+
+        //下面调用functions中的暂停函数
+        AllEle.pause.onclick = function() {
+            functions.pause();
+        };
+
+        //下面调用functions中的下一个函数
+        AllEle.next.onclick = function() {
+            functions.next();
+        };
+
+        //下面调用functions中的查询函数
+        AllEle.search.onclick = function search() {
+            functions.search();
+        };
+
+        //下面调用functions中的切换函数
+        AllEle.switch.onclick = function search() {
+            functions.switch();
+        };
+
+        //下面调用functions中的跳跃函数
+        AllEle.jump.onclick = function search() {
+            functions.jump()
+        };
+
+        //调用函数生成按钮放到容器里面
+        functions.createbutton();
+
+        //在控制台输出呢内容
+        document.onkeydown = function(e) {
+            console.log("you input:" + e.key);
+        };
+
+        //展示时间，将其放到对象里面
+        window.setInterval(function() {
+            functions.showtime()
+        }, 1000);
+
+
+        //调用函数进行全局的初始化
+        functions.init();
+
+        // 视频的UI全屏设置
+        // var browserWidth = document.body.clientWidth;
+        // video.style.width = browserWidth;
+    </script>
+</body>
+
+</html>

@@ -7,6 +7,7 @@
     <title>JavaWebHomework7</title>
     <style>
         body {
+            width: 1476px;
             font-size: 17px;
             background-color: #f5f5f5;
         }
@@ -20,7 +21,20 @@
             position: relative;
             background-color: gray;
             color: white;
-            left: 380px;
+            left: 59%;
+            top: 24px;
+        }
+        
+        div#show_time {
+            display: inline;
+            z-index: 1;
+            width: 105px;
+            font-size: 19px;
+            padding: 8px, 12px;
+            position: relative;
+            background-color: gray;
+            color: white;
+            right: 0%;
             top: 24px;
         }
         
@@ -116,6 +130,7 @@
             background-color: #45a049;
         }
     </style>
+    <!-- 定义数据的，就是全局变量 在哪儿都可以访问到-->
     <script>
         var videoFiles = ["v02004g10000c62vhdjc77ucs4ub13h0.mp4", "v02004g10000c62vnfbc77ub99epl7dg.mp4", "v02004g10000c62vpf3c77u7or2pecqg.mp4", "v02004g10000c62vsljc77u9oiijujh0.mp4", "v02004g10000c630rfjc77u2pkcl6kr0.mp4", "v02004g10000c630slrc77ubsack6ncg.mp4", , "v02004g10000c6317h3c77ub99eqonu0.mp4", "v02004g10000c64e1fjc77u1mcul10t0.mp4", "v02004g10000c64e29bc77u08to73glg.mp4", "v02004g10000c64ecsjc77u0fsou1200.mp4", "v02004g10000c64emfjc77udflk91trg.mp4", "v02004g10000c5rrikbc77u4rdiknfog.mp4", "v02004g10000c62uptrc77u43f69kg8g.mp4", "v02004g10000c62uuljc77u0gu6e3kvg.mp4"]
     </script>
@@ -145,10 +160,13 @@
     <div id="mainone">
 
         <div id="video-div">
+            <div id="show_time">
+                1号,共14号.
+            </div>
             <div id="logo">
                 1号,共14号.
             </div>
-            <video width="500px" controls src="video/v02004g10000c62vhdjc77ucs4ub13h0.mp4" id="video"> </video>
+            <video width="500px" controls src="video/v02004040000bpa9p3egncoejcefuv4g.mp4" id="video"> </video>
         </div>
 
         <div id="time">

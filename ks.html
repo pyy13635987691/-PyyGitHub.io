@@ -5,13 +5,311 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>考试</title>
-    <link rel="stylesheet" href="css/css.css">
+    <!-- <link rel="stylesheet" href="css/css.css"> -->
     <!-- 定义数据的，就是全局变量 在哪儿都可以访问到-->
     <script src="ks.js"></script>
+    <style>
+        body {
+            font-size: 17px;
+            background-color: #f5f5f5;
+        }
+        
+        #inputContainer {
+            margin: 0 auto;
+            margin: 10px 80px;
+            width: 1235.2px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* 在垂直方向上居中对齐 */
+            margin-bottom: 1px;
+        }
+        
+        div#logo {
+            display: inline;
+            z-index: 1;
+            width: 105px;
+            font-size: 19px;
+            padding: 8px, 12px;
+            position: relative;
+            background-color: gray;
+            color: white;
+            left: 54%;
+            top: 24px;
+        }
+        
+        div#show_time {
+            display: inline;
+            z-index: 1;
+            width: 105px;
+            font-size: 19px;
+            padding: 8px, 12px;
+            position: relative;
+            background-color: gray;
+            color: white;
+            right: 0%;
+            top: 24px;
+        }
+        /* #container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#wrapper {
+  display: flex;
+  align-items: flex-start;
+} */
+        
+        #show_time {
+            margin-right: 5px;
+            /* 调整间距 */
+        }
+        
+        #video-div {
+            width: 500px;
+            margin: 0 auto;
+        }
+        
+        [id^="createButton"] {
+            /* 样式规则 以createButton开头的id*/
+            font-size: 16px;
+            margin: 30px;
+            box-shadow: 5px 6px 1px rgba(48, 46, 46, 0.132);
+            background-color: #4594a6;
+            color: #ffffff;
+            padding: 12px 17px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            /* cursor: progress; */
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        h3 {
+            color: #7e7a7a;
+            text-align: center;
+        }
+        
+        #mainone {
+            background-color: #e8e8e8;
+            width: 1235.2px;
+            font-size: 17px;
+            padding: 28px;
+            margin: 0 auto;
+            font-family: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif, SimHei, SimSun;
+            margin: 10px 80px;
+        }
+        
+        #imgContainer {
+            display: flex;
+            background-color: #e8e8e8;
+            width: 1263.2px;
+            font-size: 17px;
+            padding: 17px;
+            margin: 0 auto;
+            font-family: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif, SimHei, SimSun;
+            margin: 10px 80px;
+            text-align: center;
+        }
+        
+        #imgContainer h6,
+        h3 {
+            color: #7e7a7a;
+            padding: 7px;
+            margin: 0 7px;
+        }
+        
+        #images {
+            flex: auto;
+        }
+        
+        #persion {
+            width: 110px;
+        }
+        
+        #search,
+        #jumpByTime {
+            text-align: center;
+            font-size: 16px;
+            width: 520px;
+            margin: 0 auto;
+            align-items: center;
+        }
+        
+        #time {
+            text-align: center;
+            font-size: 16px;
+            width: 520px;
+            margin: 0 auto;
+            align-items: center;
+        }
+        
+        #maintwo {
+            width: 1290.6px;
+            background-color: #e8e8e8;
+            margin: 0 auto;
+            font-family: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif, SimHei, SimSun;
+            margin: 1px 80px;
+        }
+        
+        #buttonContainer {
+            position: fixed;
+            /* 固定在浏览器底部 */
+            /* bottom: 0; */
+            /* left: 0; */
+            top: 70%;
+            /* 顶部距离设置为50%，即半个屏幕高度 */
+            left: 50%;
+            /* 左边距设置为50%，即半个屏幕宽度 */
+            transform: translate(-50%, -50%);
+            /* 向左和向上各平移自身宽度和高度的50%，确保居中 */
+            /* 水平位置调整为左对齐 */
+            width: 100%;
+            /* 宽度占满整个屏幕 */
+            display: flex;
+            /* 使用弹性盒子布局 */
+            justify-content: space-around;
+            /* 按钮沿着水平方向均匀分布 */
+            padding: 20px;
+            /* 设置内边距 */
+            background-color: transparent;
+            /* 背景颜色 */
+            z-index: 999;
+            /* 确保在最前面显示，避免被其他元素遮挡 */
+        }
+        
+        #buttonContainer button {
+            text-align: center;
+            width: 23px;
+            font-size: 14px;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            padding: 3px;
+            margin: 0px 2px;
+            /* 按钮之间的距离 */
+        }
+        
+        #button {
+            width: 500px;
+            margin: 0 auto;
+        }
+        
+        button {
+            margin: 30px;
+            box-shadow: 5px 6px 1px rgba(48, 46, 46, 0.132);
+            background-color: #4caf50;
+            color: #ffffff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            /* cursor: progress; */
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        
+        #switch {
+            width: 130px;
+        }
+        
+        input {
+            width: 300px;
+            height: 40px;
+            margin: 4px 0;
+            padding-left: 25px;
+            font-size: 13px;
+            letter-spacing: 0.15px;
+            border: none;
+            outline: none;
+            background-color: #ecf0f3;
+            transition: 0.25s ease;
+            border-radius: 8px;
+            box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9;
+        }
+        
+        input:focus {
+            box-shadow: inset 4px 4px 4px #d1d9e6, inset -4px -4px 4px #f9f9f9;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        /* 音频部分 */
+        
+        #container {
+            display: flex;
+            justify-content: center;
+            /* align-items: center; */
+            height: 450px;
+            /* margin-top:10px; */
+            margin-left: 50px;
+        }
+        
+        #main {
+            width: 500px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        
+        #title-lg {
+            font-size: 36px;
+            /* margin-bottom: 20px; */
+        }
+        
+        #mp3 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        #img {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        #img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        audio {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        #controls {
+            display: flex;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body>
 
+    <div id="imgContainer">
+        <!-- 
+        结构如下
+
+        <div id="images">
+            <img id="persion" src="d:\img\7aa2a05f-7dcb-439f-986a-7ae3154d061d.jpg" width="110px">
+        </div> 
+
+        -->
+    </div>
 
     <div id="inputContainer">
         <div>
@@ -89,6 +387,7 @@
             audioContainer: document.getElementById("audioContainer"),
             container: document.getElementById('buttonContainer'),
             videodiv: document.getElementById('video-div'),
+            imgContainer: document.getElementById('imgContainer'),
 
             //功能元素的获取
             start: document.getElementById("start"),
@@ -119,6 +418,41 @@
                 AllEle.show_time.textContent = parseInt(AllEle.video.currentTime) + "s" + "    " + "/共" + parseInt(AllEle.video.duration) + "秒";
                 AllEle.audioContainer.remove();
                 AllEle.container.remove();
+                //调用createPersion生成个人的简介
+                functions.createPersion();
+            },
+
+            //生成个人的简介的div函数
+            createPersion: function() {
+                // 动态生成四个div
+                for (var i = 0; i < dataSource.author.names.length; i++) {
+                    var div = document.createElement('div');
+                    div.id = "images";
+
+                    // 创建图像元素
+                    var img = document.createElement('img');
+                    img.id = "persion";
+                    img.src = dataSource.author.img[i]; // 设置图像的源文件路径
+
+                    //创建 h3 标签
+                    var h3 = document.createElement('h3');
+                    h3.innerText = dataSource.author.names[i];
+
+                    //创建 h6 标签
+                    var h6 = document.createElement('h6');
+                    h6.innerText = dataSource.author.identity[i];
+
+                    // 将图像元素添加到div中
+                    div.appendChild(img);
+                    // 将h3添加到div中
+                    div.appendChild(h3);
+                    // 将h6添加到div中
+                    div.appendChild(h6);
+
+                    // 将div添加到父容器中
+                    AllEle.imgContainer.appendChild(div);
+                }
+
             },
 
             //切换页面函数
@@ -130,6 +464,7 @@
 
                     AllEle.videodiv.appendChild(AllEle.audioContainer) //显示音频容器
                     AllEle.videodiv.appendChild(AllEle.container); //显示按钮容器
+                    AllEle.switch.textContent = "切换到视频"
                     AllEle.comment.innerHTML = "这是" + (dataSource.audioData.title[0]);
                 } else { //当前页面为音频页面 点击切换为视频页面
                     AllEle.videodiv.appendChild(AllEle.show_time) //显示show_time
@@ -138,7 +473,7 @@
 
                     AllEle.container.remove(); //移除按钮容器
                     AllEle.audioContainer.remove(); //移除音频容器
-
+                    AllEle.switch.textContent = "切换到音频"
                     AllEle.comment.innerHTML = "这是第1个文件";
                 }
 

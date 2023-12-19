@@ -356,7 +356,7 @@
                             <div id="img">
                                 <img src="1.jpg" style="width: 400px;height:auto;">
                             </div>
-                            <audio id="audio" src="audio/linuxCMD-5.mp3" controls="controls" autoplay="autoplay" preload="auto"></audio>
+                            <audio id="audio" controls="controls" autoplay="autoplay" preload="auto"></audio>
                         </div>
                     </div>
                 </div>
@@ -416,6 +416,7 @@
             //初始化视频
             init: function() {
                 AllEle.video.src = dataSource.videoData.path + dataSource.videoData.videoNames[variable.i];
+                AllEle.audio.src = dataSource.audioData.path + dataSource.audioData.fileNames;
                 AllEle.logo.textContent = "1号，" + "共" + variable.videoLength + "号";
                 AllEle.show_time.textContent = parseInt(AllEle.video.currentTime) + "s" + "    " + "/共" + parseInt(AllEle.video.duration) + "秒";
                 AllEle.audioContainer.remove();
@@ -434,7 +435,7 @@
                     // 创建图像元素
                     var img = document.createElement('img');
                     img.id = "persion" + i;
-                    img.src = dataSource.author.img[i] + "?callback=handleResponse" + (i + 1); // 设置图像的源文件路径
+                    img.src = dataSource.author.img[i]; // 设置图像的源文件路径
 
                     //创建 h3 标签
                     var h3 = document.createElement('h3');
@@ -674,22 +675,6 @@
         //调用函数进行全局的初始化
         functions.init();
 
-        //解决跨域问题
-        function handleResponse1(response) {
-            document.getElementById("person1").src = response.url;
-        }
-
-        function handleResponse2(response) {
-            document.getElementById("person2").src = response.url;
-        }
-
-        function handleResponse1(response) {
-            document.getElementById("person3").src = response.url;
-        }
-
-        function handleResponse2(response) {
-            document.getElementById("person4").src = response.url;
-        }
         // 视频的UI全屏设置
         // var browserWidth = document.body.clientWidth;
         // video.style.width = browserWidth;

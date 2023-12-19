@@ -319,7 +319,7 @@
             <button id="searchBtn">查找</button>
         </div>
         <div id="mainthree">
-            <h3 id="comment">这是第1个文件</h3>
+            <h3 id="comment">这是第1个视频</h3>
             <button id="switch">切换到音频</button>
         </div>
 
@@ -477,7 +477,7 @@
                     AllEle.container.remove(); //移除按钮容器
                     AllEle.audioContainer.remove(); //移除音频容器
                     AllEle.switch.textContent = "切换到音频"
-                    AllEle.comment.innerHTML = "这是第1个文件";
+                    AllEle.comment.innerHTML = "这是第1个视频";
                 }
 
                 variable.i = 0;
@@ -617,6 +617,7 @@
                     //设置按钮的功能
                     button.onclick = function() {
                         AllEle.audio.currentTime = dataSource.audioData.time[i - 1];
+                        variable.videoIndex = i - 1;
                         AllEle.comment.innerHTML = "这是" + (dataSource.audioData.title[i - 1]);
                         functions.start();
                     };

@@ -125,7 +125,7 @@
             flex: auto;
         }
         
-        #persion {
+        [id*="persion"] {
             width: 110px;
         }
         
@@ -406,6 +406,9 @@
             x: 0,
             isVideo: true,
             videoIndex: 0,
+            videoLength: dataSource.videoData.videoNames.length,
+            authorLength: dataSource.author.names.length,
+            audioLength: dataSource.audioData.time.length,
         }
 
         //定义函数模型(函数功能的实现)
@@ -413,7 +416,7 @@
             //初始化视频
             init: function() {
                 AllEle.video.src = dataSource.videoData.path + dataSource.videoData.videoNames[variable.i];
-                AllEle.logo.textContent = "1号，" + "共" + dataSource.videoData.videoNames.length + "号";
+                AllEle.logo.textContent = "1号，" + "共" + variable.videoLength + "号";
                 AllEle.show_time.textContent = parseInt(AllEle.video.currentTime) + "s" + "    " + "/共" + parseInt(AllEle.video.duration) + "秒";
                 AllEle.audioContainer.remove();
                 AllEle.container.remove();
@@ -424,14 +427,14 @@
             //生成个人的简介的div函数
             createPersion: function() {
                 // 动态生成四个div
-                for (var i = 0; i < dataSource.author.names.length; i++) {
+                for (var i = 0; i < variable.authorLength; i++) {
                     var div = document.createElement('div');
                     div.id = "images";
 
                     // 创建图像元素
                     var img = document.createElement('img');
-                    img.id = "persion";
-                    img.src = dataSource.author.img[i]; // 设置图像的源文件路径
+                    img.id = "persion" + i;
+                    img.src = dataSource.author.img[i] + "?callback=handleResponse" + (i + 1); // 设置图像的源文件路径
 
                     //创建 h3 标签
                     var h3 = document.createElement('h3');
@@ -538,20 +541,20 @@
                 var searchText = searchInput.value;
                 variable.x = Number(searchText);
                 if (variable.isVideo) { //当前页面为视频
-                    if (variable.x > dataSource.videoData.videoNames.length || variable.x <= 0 || variable.x == null) {
+                    if (variable.x > variable.videoLength || variable.x <= 0 || variable.x == null) {
                         variable.x = 0;
                         variable.videoIndex = variable.x - 1;
                         AllEle.video.src = dataSource.videoData.path + dataSource.videoData.videoNames[variable.x];
-                        AllEle.logo.textContent = "1号，" + "共" + dataSource.videoData.videoNames.length + "号";
+                        AllEle.logo.textContent = "1号，" + "共" + variable.videoLength + "号";
                         AllEle.comment.innerHTML = "您输入的数字有问题或者超出了最大个数，请检查，已为你跳转到第一个！";
                     } else {
                         variable.videoIndex = variable.x - 1;
                         AllEle.video.src = dataSource.videoData.path + dataSource.videoData.videoNames[variable.x - 1];
                         AllEle.comment.innerHTML = "这是第" + variable.x + "个";
-                        AllEle.logo.textContent = variable.x + "号，" + "共" + dataSource.videoData.videoNames.length + "号";
+                        AllEle.logo.textContent = variable.x + "号，" + "共" + variable.videoLength + "号";
                     }
                 } else { //当前页面为音频
-                    if (variable.x > dataSource.audioData.time.length || variable.x <= 0 || variable.x == null) {
+                    if (variable.x > variable.audioLength || variable.x <= 0 || variable.x == null) {
                         variable.x = 0;
                         variable.videoIndex = variable.x - 1;
                         AllEle.audio.currentTime = dataSource.audioData.time[variable.x]
@@ -567,16 +570,16 @@
             //下一个函数
             next: function() {
                 if (variable.isVideo) { //当前页面为视频
-                    if (variable.videoIndex >= dataSource.videoData.videoNames.length - 1 || variable.videoIndex < 0) {
+                    if (variable.videoIndex >= variable.videoLength - 1 || variable.videoIndex < 0) {
                         variable.videoIndex = 0;
                     } else {
                         variable.videoIndex++;
                     }
-                    AllEle.logo.textContent = (variable.videoIndex + 1) + "号，" + "共" + dataSource.videoData.videoNames.length + "号";
+                    AllEle.logo.textContent = (variable.videoIndex + 1) + "号，" + "共" + variable.videoLength + "号";
                     AllEle.video.src = dataSource.videoData.path + dataSource.videoData.videoNames[variable.videoIndex];
                     AllEle.comment.innerHTML = "这是第" + (variable.videoIndex + 1) + "个视频";
                 } else { //当前页面为音频
-                    if (variable.videoIndex >= dataSource.audioData.time.length - 1 || variable.videoIndex < 0) {
+                    if (variable.videoIndex >= variable.audioLength - 1 || variable.videoIndex < 0) {
                         variable.videoIndex = 0;
                     } else {
                         variable.videoIndex++;
@@ -671,6 +674,22 @@
         //调用函数进行全局的初始化
         functions.init();
 
+        //解决跨域问题
+        function handleResponse1(response) {
+            document.getElementById("person1").src = response.url;
+        }
+
+        function handleResponse2(response) {
+            document.getElementById("person2").src = response.url;
+        }
+
+        function handleResponse1(response) {
+            document.getElementById("person3").src = response.url;
+        }
+
+        function handleResponse2(response) {
+            document.getElementById("person4").src = response.url;
+        }
         // 视频的UI全屏设置
         // var browserWidth = document.body.clientWidth;
         // video.style.width = browserWidth;

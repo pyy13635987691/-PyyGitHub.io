@@ -11,6 +11,7 @@ var dataSource = {
       // "https://gitee.com/damoly/hellogit.git/raw/master/imgs/沈康利.jpg",
 
       //原来的github网址
+      "https://pyy13635987691.github.io/PyyGitHub.io/imgs/ljh.jpg",
       "https://nieyuxin001.github.io/img/%E5%BD%AD%E6%B3%B1%E6%97%B8.jpg",
       "https://nieyuxin001.github.io/img/%E5%BD%AD%E9%94%A6%E9%B9%8F.jpg",
       "https://nieyuxin001.github.io/img/%E9%99%88%E9%BE%99.jpg",

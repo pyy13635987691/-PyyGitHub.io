@@ -4,18 +4,18 @@ var dataSource = {
     identity: ["指导老师", "小组长", "成员", "成员", "成员"],
     img: [
       // 换成gitee来存照片 保证页面加载的快点
-      // "https://gitee.com/damoly/hellogit.git/raw/master/imgs/ljh.jpg",
-      // "https://gitee.com/damoly/hellogit.git/raw/master/imgs/彭泱旸.jpg",
-      // "https://gitee.com/damoly/hellogit.git/raw/master/imgs/彭锦鹏.jpg",
-      // "https://gitee.com/damoly/hellogit.git/raw/master/imgs/陈龙.jpg",
-      // "https://gitee.com/damoly/hellogit.git/raw/master/imgs/沈康利.jpg",
+      "https://gitee.com/damoly/hellogit.git/raw/master/imgs/ljh.jpg",
+      "https://gitee.com/damoly/hellogit.git/raw/master/imgs/彭泱旸.jpg",
+      "https://gitee.com/damoly/hellogit.git/raw/master/imgs/彭锦鹏.jpg",
+      "https://gitee.com/damoly/hellogit.git/raw/master/imgs/陈龙.jpg",
+      "https://gitee.com/damoly/hellogit.git/raw/master/imgs/沈康利.jpg",
 
       //原来的github网址
-      "https://pyy13635987691.github.io/PyyGitHub.io/imgs/ljh.jpg",
-      "https://nieyuxin001.github.io/img/%E5%BD%AD%E6%B3%B1%E6%97%B8.jpg",
-      "https://nieyuxin001.github.io/img/%E5%BD%AD%E9%94%A6%E9%B9%8F.jpg",
-      "https://nieyuxin001.github.io/img/%E9%99%88%E9%BE%99.jpg",
-      "https://nieyuxin001.github.io/img/%E6%B2%88%E5%BA%B7%E5%88%A9.jpg",
+      // "https://pyy13635987691.github.io/PyyGitHub.io/imgs/ljh.jpg",
+      // "https://nieyuxin001.github.io/img/%E5%BD%AD%E6%B3%B1%E6%97%B8.jpg",
+      // "https://nieyuxin001.github.io/img/%E5%BD%AD%E9%94%A6%E9%B9%8F.jpg",
+      // "https://nieyuxin001.github.io/img/%E9%99%88%E9%BE%99.jpg",
+      // "https://nieyuxin001.github.io/img/%E6%B2%88%E5%BA%B7%E5%88%A9.jpg",
     ],
   },
   videoData: {

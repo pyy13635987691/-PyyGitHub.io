@@ -142,7 +142,7 @@ var dataSource = {
     ],
   },
   audioData: {
-    path: "https:/jxzy-dmxy.jxstnu.edu.cn/",
+    path: "https://jxzy-dmxy.jxstnu.edu.cn/",
     fileNames: ["linuxCMD-5.mp3"],
     title: [
       "一.使用命令",

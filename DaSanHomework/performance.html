@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ol {
+            font-size: 3em;
+            background-color: black;
+            color: green;
+            padding-left: 3em;
+        }
+    </style>
+</head>
+<!-- 
+{
+name:"Emoji",
+ranges:[[126976,127020],[127024,127124],[127136,127222],[127744,128722]]
+} 
+-->
+
+<body>
+    <ol>
+
+    </ol>
+</body>
+<script>
+    var timer = {};
+    timer.begin = function() {
+        timer.bt = new Date();
+    };
+    timer.end = function() {
+        return new Date() - timer.bt;
+    };
+
+    var Emoji = [
+        [126976, 127020],
+        [127024, 127124],
+        [127136, 127222],
+        [127744, 128722]
+    ]
+
+    output('从我出生到现在的时间戳的计算时间为:');
+    let birthDay = new Date("2003/1/30");
+    timer.begin();
+    var mySec = (timer.bt - birthDay) / 1000;
+    output("my life now is " + mySec)
+    for (let i = 1; i < mySec; i++) {
+        //do nothing
+    }
+
+    output(timer.end() + "ms!");
+    timer.begin();
+    var emojiStr = '';
+    for (let x = 0; x < Emoji.length; x++) {
+        for (let y = Emoji[x][0]; y < Emoji[x][1]; y++) {
+            emojiStr += String.fromCodePoint(y)
+        }
+    }
+    output(emojiStr);
+
+    //-------本地文件的
+    timer.begin();
+    var imgDoms = [];
+    var imgSrc = ['0.jpg', '1.jpg', '2.jpg', '3.jpg', '5.jpg']
+    for (let url of imgSrc) {
+        let img = new Image();
+        img.src = 'myface/' + url;
+        img.addEventListener('load', function() {
+            let s = "本地文件花费的时间:" + url + timer.end() + " ms";
+            output(s);
+        });
+        imgDoms.push(img);
+    }
+
+    //-------网络IO的加载研究
+    timer.begin();
+    var imgDoms = [];
+    var imgSrc = ['ljh.jpg', '彭泱旸.jpg', '彭锦鹏.jpg', '陈龙.jpg']
+    for (let url of imgSrc) {
+        let img = new Image();
+        img.src = 'https://pyy13635987691.github.io/PyyGitHub.io/imgs/' + url;
+        img.addEventListener('load', function() {
+            let s = "github网络事件的异步代码花费的时间:" + url + timer.end() + " ms";
+            output(s);
+        });
+        imgDoms.push(img);
+    }
+
+    function output(s) {
+        var dad = $('ol');
+        var child = document.createElement('li');
+        child.textContent = s;
+        dad.appendChild(child)
+    }
+
+    function $(selector) {
+        return document.querySelector(selector);
+    }
+</script>
+
+</html>
